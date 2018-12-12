@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:properties/dubbo.properties" ignore-unresolvable="true"/>
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="admin-web_consumer"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <!--<dubbo:registry address="zookeeper://172.17.139.199:2181"/>-->
+
+
+    <!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="${dubbo.port}" />
+
+    <!-- BannerService服务 -->
+    <dubbo:reference id="bannerService" interface="com.mine.supportservice.service.BannerService" retries="0" check="false" timeout="30000"/>
+
+    <!--AfficheService服务-->
+    <dubbo:reference id="afficheService" interface="com.mine.supportservice.service.AfficheService" retries="0" check="false" timeout="30000"/>
+
+    <dubbo:reference id="userService" interface="com.mine.userservice.UserService" retries="0" check="false" timeout="30000"/>
+
+    <dubbo:reference id="activityInfoService" interface="com.mine.supportservice.service.ActivityInfoService" retries="0" check="false" timeout="30000"/>
+
+    <!--币种服务-->
+    <dubbo:reference id="currencyService" interface="com.mine.bizservice.CurrencyService" retries="0" check="false" timeout="30000"/>
+    <!--兑换服务-->
+    <dubbo:reference id="convertService" interface="com.mine.bizservice.ConvertService" retries="0" check="false" timeout="30000"/>
+    <!--兑换服务-->
+    <dubbo:reference id="robotConfigService" interface="com.mine.bizservice.RobotConfigService" retries="0" check="false" timeout="30000"/>
+    <!--奖励发放服务-->
+    <dubbo:reference id="awardService" interface="com.mine.bizservice.AwardService" retries="0" check="false" timeout="30000"/>
+    <!--活动奖励服务-->
+    <dubbo:reference id="awardConfigService" interface="com.mine.bizservice.AwardConfigService" retries="0" check="false" timeout="30000"/>
+
+    <!--交易对服务-->
+    <dubbo:reference id="exchangeService" interface="com.mine.bizservice.ExchangeService" retries="0" check="false" timeout="30000"/>
+
+    <!--帮助中心分类-->
+    <dubbo:reference id="helpCategoryService" interface="com.mine.supportservice.service.HelpCategoryService" retries="0" check="false" timeout="30000"/>
+
+    <!--帮助中心分类-->
+    <dubbo:reference id="helpCategoryDetailService" interface="com.mine.supportservice.service.HelpCategoryDetailService" retries="0" check="false" timeout="30000"/>
+    <!-- 币种介绍 -->
+    <dubbo:reference interface="com.mine.supportservice.service.CurrencyIntroductionService" id="currencyIntroductionService" check="false" />
+    <!-- 上币申请-->
+    <dubbo:reference interface="com.mine.supportservice.service.CurrencyApplyService" id="currencyApplyService" check="false" />
+
+    <!--实名认证，用于审核-->
+    <dubbo:reference id="idInfoService" interface="com.mine.userservice.IdInfoService" retries="0" check="false" timeout="30000"/>
+
+    <!--交易-->
+    <dubbo:reference id="bizService" interface="com.mine.bizservice.BizService" retries="0" check="false" timeout="30000"/>
+
+    <dubbo:reference interface="com.mine.supportservice.service.MobileUpdateLogService" check="false" id="mobileUpdateLogService" retries="0" timeout="30000" />
+
+    <dubbo:reference interface="com.mine.bizservice.AdminService" id="adminService" check="false" />
+
+    <dubbo:reference interface="com.mine.userservice.CustomerInviteService" id="customerInviteService" check="false" />
+
+    <dubbo:reference interface="com.mine.userservice.InviteRuleService" id="InviteRuleService" check="false" />
+
+    <dubbo:reference interface="com.mine.supportservice.service.VersionUpdateService" id="versionUpdateService" check="false" retries="0" timeout="30000"/>
+
+    <dubbo:reference interface="com.mine.bizservice.AdminExchangePartitionService" id="adminExchangePartitionService" check="false" retries="0" timeout="30000" />
+
+    <dubbo:reference interface="com.mine.wallet.service.WalletService" id="walletService" check="false" retries="0" timeout="30000" />
+
+    <dubbo:reference interface="com.mine.supportservice.service.ExchangeViewService" id="exchangeViewService" check="false" retries="0" timeout="30000" />
+    <!-- 法币交易银行账户 -->
+    <dubbo:reference interface="com.mine.bizservice.CustomerBankcardInfoService" id="customerBankcardInfoService" check="false" retries="0" timeout="30000" />
+    <!-- 法币交易订单 -->
+    <dubbo:reference interface="com.mine.bizservice.C2CExchangeOrderService" id="c2cExchangeOrderService" check="false" retries="0" timeout="30000" />
+    <!-- 法币交易订单详情 -->
+    <dubbo:reference interface="com.mine.bizservice.C2CExchangeOrderDetailService" id="c2cExchangeOrderDetailService" check="false" retries="0" timeout="30000" />
+    <!-- 单价设置 -->
+    <dubbo:reference interface="com.mine.bizservice.C2CPriceService" id="c2cPriceService" check="false" retries="0" timeout="30000" />
+    <!-- 法币交易银行账户 -->
+    <dubbo:reference interface="com.mine.bizservice.SystemBankcardInfoService" id="systemBankcardInfoService" check="false" retries="0" timeout="30000" />
+    <!-- 法币交易银行账户 -->
+    <dubbo:reference interface="com.mine.bizservice.BankService" id="bankService" check="false" retries="0" timeout="30000" />
+    <!-- 法币交易限额设置 -->
+    <dubbo:reference interface="com.mine.bizservice.C2CTradeLimitService" id="c2cTradeLimitService" check="false" retries="0" timeout="30000" />
+    <!-- C2C币种设置 -->
+    <dubbo:reference interface="com.mine.bizservice.C2CCurrencyService" id="c2cCurrencyService" check="false" retries="0" timeout="30000" />
+
+    <!--活动方案服务-->
+    <dubbo:reference id="activityService" interface="com.mine.bizservice.ActivityService" retries="0" check="false" timeout="30000"/>
+    <dubbo:reference id="activityConfigService" interface="com.mine.bizservice.ActivityConfigService" retries="0" check="false" timeout="30000"/>
+    <dubbo:reference id="luckyDrawRecordService" interface="com.mine.bizservice.LuckyDrawRecordService" retries="0" check="false" timeout="30000"/>
+    <!-- 站内信 -->
+    <dubbo:reference interface="com.mine.bizservice.MessageService" id="messageService" check="false" retries="0" timeout="30000" />
+
+    <!--借贷-->
+    <dubbo:reference interface="com.mine.bizservice.LoanOrderService" id="loanOrderService" check="false" retries="0" timeout="30000"/>
+
+    <!--抵押产品-->
+    <dubbo:reference interface="com.mine.bizservice.LoanCurrencyProductService" id="loanCurrencyProductService" check="false" retries="0" timeout="30000"/>
+    <dubbo:reference interface="com.mine.bizservice.LoanAmountRateService" id="loanAmountRateService" check="false" retries="0" timeout="30000"/>
+
+    <dubbo:reference interface="com.mine.userservice.PartnerLevelService" id="partnerLevelService" check="false" retries="0" timeout="30000" />
+    <dubbo:reference interface="com.mine.bizservice.BonusService" id="bonusService" check="false" retries="0" timeout="30000"/>
+
+    <dubbo:reference interface="com.mine.bizservice.CfdBizService" id="cfdBizService" check="false" retries="0" timeout="30000" />
+
+    <!--合约币种-->
+    <dubbo:reference interface="com.mine.bizservice.CfdCurrencyService" id="cfdCurrencyService" check="false" retries="0" timeout="30000" />
+    <!--合约节点服务-->
+    <dubbo:reference interface="com.mine.bizservice.CfdNodeService" id="cfdNodeService" check="false" retries="0" timeout="30000" />
+    <!--合约活动服务-->
+    <dubbo:reference interface="com.mine.bizservice.CfdTransferRewardRecordService" id="cfdTransferRewardRecordService" check="false" retries="0" timeout="30000" />
+    <dubbo:reference interface="com.mine.bizservice.CfdTransferRewardApplyService" id="cfdTransferRewardApplyService" check="false" retries="0" timeout="30000" />
+
+    <dubbo:reference interface="com.mine.bizservice.CfdFinalMoneyService" id="cfdFinalMoneyService" retries="0" check="false"  timeout="30000" />
+
+    <dubbo:reference interface="com.mine.bizservice.CfdSubAccountLogService" id="CfdSubAccountLogService" retries="0" check="false"  timeout="30000" />
+
+</beans>

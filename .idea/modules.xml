@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/admin-web/admin-web.iml" filepath="$PROJECT_DIR$/admin-web/admin-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bizservice-parent/bizservice-interface/bizservice-interface.iml" filepath="$PROJECT_DIR$/bizservice-parent/bizservice-interface/bizservice-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bizservice-parent/bizservice-parent.iml" filepath="$PROJECT_DIR$/bizservice-parent/bizservice-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bizservice-parent/bizservice-provider/bizservice-provider.iml" filepath="$PROJECT_DIR$/bizservice-parent/bizservice-provider/bizservice-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commons-parent/common/common.iml" filepath="$PROJECT_DIR$/commons-parent/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commons-parent/commons-parent.iml" filepath="$PROJECT_DIR$/commons-parent/commons-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/home-api/home-api.iml" filepath="$PROJECT_DIR$/home-api/home-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/luxbid-parent.iml" filepath="$PROJECT_DIR$/luxbid-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage-all/manage-all.iml" filepath="$PROJECT_DIR$/manage-all/manage-all.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suportservice-parent/suportservice-interface/suportservice-interface.iml" filepath="$PROJECT_DIR$/suportservice-parent/suportservice-interface/suportservice-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suportservice-parent/suportservice-parent.iml" filepath="$PROJECT_DIR$/suportservice-parent/suportservice-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suportservice-parent/suportservice-provider/suportservice-provider.iml" filepath="$PROJECT_DIR$/suportservice-parent/suportservice-provider/suportservice-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/userservice-parent/userservice-interface/userservice-interface.iml" filepath="$PROJECT_DIR$/userservice-parent/userservice-interface/userservice-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/userservice-parent/userservice-parent.iml" filepath="$PROJECT_DIR$/userservice-parent/userservice-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/userservice-parent/userservice-provider/userservice-provider.iml" filepath="$PROJECT_DIR$/userservice-parent/userservice-provider/userservice-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/util/util.iml" filepath="$PROJECT_DIR$/util/util.iml" />
+    </modules>
+  </component>
+</project>

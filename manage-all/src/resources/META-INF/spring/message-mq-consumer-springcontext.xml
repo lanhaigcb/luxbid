@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:properties/rabbitMQ.properties" ignore-unresolvable="true"/>
+
+    <!-- 配置mq的连接工厂 -->
+    <rabbit:connection-factory id="connectionFactory" host="${rabbit_server_host}" username="${rabbit_server_username}"
+                               password="${rabbit_server_password}" requested-heartbeat="${rabbit_heart_beat}"
+                               port="${rabbit_server_port}"/>
+
+    <rabbit:admin connection-factory="connectionFactory"/>
+
+    <!-- 配置mq的队列 -->
+    <rabbit:queue id="matchNotifyQueueforBiz" durable="true" auto-delete="false" exclusive="false"
+                  name="matchNotifyQueueforBiz"/>
+
+    <!-- 配置消息队列的监听方法 -->
+    <bean id="matchMessageReceiver" class="com.mine.bizservice.rabbitmq.MatchOrderConsumer"/>
+
+    <bean id="jsonMessageConverter" class="com.mine.ex.rabbitmq.converter.FastJsonMessageConverter"/>
+
+    <rabbit:listener-container connection-factory="connectionFactory">
+        <rabbit:listener ref="matchMessageReceiver" queue-names="matchNotifyQueueforBiz"/>
+    </rabbit:listener-container>
+
+
+    <!-- 配置mq的队列 ,区块扫描信息 -->
+    <rabbit:queue id="rechargeArrivalQueue" durable="true" auto-delete="false" exclusive="false" name="rechargeArrivalQueue"/>
+
+    <!-- 配置mq的exchange 行情专用  -->
+    <rabbit:direct-exchange name="ex-for-recharge-arrival">
+        <rabbit:bindings>
+            <!--撮合成交通知-->
+            <rabbit:binding key="recharge" queue="rechargeArrivalQueue"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- 配置消息队列的监听方法 -->
+    <bean id="rechargeNotifyReceiver" class="com.mine.bizservice.rabbitmq.RechargeArrivalConsumer"/>
+
+    <rabbit:listener-container connection-factory="connectionFactory">
+        <rabbit:listener ref="rechargeNotifyReceiver" queue-names="rechargeArrivalQueue"/>
+    </rabbit:listener-container>
+
+
+    <!--提币消息队列-->
+    <rabbit:queue id="withdrawQueue" durable="true" auto-delete="false" exclusive="false" name="withdrawQueue"/>
+
+    <rabbit:direct-exchange name="ex-for-recharge-arrival">
+        <rabbit:bindings>
+            <!--撮合成交通知-->
+            <rabbit:binding key="withdraw" queue="withdrawQueue"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- 配置消息队列的监听方法 -->
+    <bean id="withdrawNotifyReceiver" class="com.mine.bizservice.rabbitmq.WithdrawConsumer"/>
+
+    <rabbit:listener-container connection-factory="connectionFactory">
+        <rabbit:listener ref="withdrawNotifyReceiver" queue-names="withdrawQueue"/>
+    </rabbit:listener-container>
+
+
+    <!-- 配置mq的队列 ,交易余额发生变化信息 -->
+    <rabbit:queue id="tradeBalanceQueue" durable="true" auto-delete="false" exclusive="false" name="tradeBalanceQueue"/>
+
+    <!-- 配置mq的exchange 行情专用  -->
+    <rabbit:direct-exchange name="ex-for-trade-balance">
+        <rabbit:bindings>
+            <!--余额变动通知-->
+            <rabbit:binding key="balance" queue="tradeBalanceQueue"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!--定义rabbit template用于数据的接收和发送 -->
+    <rabbit:template id="balanceAmqpTemplate" connection-factory="connectionFactory"
+                     exchange="ex-for-trade-balance" message-converter="jsonMessageConverter" />
+
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin-web" />
+        <module name="bizservice-interface" />
+        <module name="bizservice-provider" />
+        <module name="common" />
+        <module name="home-api" />
+        <module name="manage-all" />
+        <module name="suportservice-interface" />
+        <module name="suportservice-parent" />
+        <module name="suportservice-provider" />
+        <module name="userservice-interface" />
+        <module name="userservice-parent" />
+        <module name="userservice-provider" />
+        <module name="util" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="admin-web" target="1.8" />
+      <module name="bizservice-interface" target="1.7" />
+      <module name="bizservice-parent" target="1.8" />
+      <module name="bizservice-provider" target="1.7" />
+      <module name="common" target="1.7" />
+      <module name="commons-parent" target="1.8" />
+      <module name="home-api" target="1.8" />
+      <module name="luxbid-parent" target="1.8" />
+      <module name="manage-all" target="1.8" />
+      <module name="suportservice-interface" target="1.8" />
+      <module name="suportservice-parent" target="1.8" />
+      <module name="suportservice-provider" target="1.8" />
+      <module name="userservice-interface" target="1.8" />
+      <module name="userservice-parent" target="1.8" />
+      <module name="userservice-provider" target="1.8" />
+      <module name="util" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

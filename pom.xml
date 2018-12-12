@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.shop</groupId>
+  <artifactId>luxbid-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+
+  <modules>
+
+    <module>admin-web</module>
+    <module>bizservice-parent</module>
+    <module>commons-parent</module>
+    <module>home-api</module>
+    <module>suportservice-parent</module>
+    <module>userservice-parent</module>
+    <module>util</module>
+    <module>manage-all</module>
+  </modules>
+
+  <properties>
+
+    <spring.version>3.2.13.RELEASE</spring.version>
+    <spring4.version>4.2.4.RELEASE</spring4.version>
+    <hibernate.version>3.5.6-Final</hibernate.version>
+    <aspectj.version>1.7.3</aspectj.version>
+    <google.guava.version>17.0</google.guava.version>
+    <jackson.version>2.9.4</jackson.version>
+    <spring-security.version>3.1.1.RELEASE</spring-security.version>
+    <mysql.connector.version>5.1.21</mysql.connector.version>
+    <org.quartz>1.8.4</org.quartz>
+    <slf4j.version>1.7.5</slf4j.version>
+    <fastJson.version>1.2.46</fastJson.version>
+    <logback.version>1.0.13</logback.version>
+    <dubbo.version>2.5.3</dubbo.version>
+    <javassist.verion>3.20.0-GA</javassist.verion>
+    <zkclient.version>0.10</zkclient.version>
+    <org.codehaus.jackson.version>1.9.7</org.codehaus.jackson.version>
+    <jstl.version>1.2</jstl.version>
+    <taglib.version>1.1.2</taglib.version>
+    <servlet.version>3.0-alpha-1</servlet.version>
+    <commons.fileupload.version>1.3</commons.fileupload.version>
+    <junit.version>3.8.1</junit.version>
+
+    <!--mongodb 配置版本-->
+    <mongo.java.driver.version>3.1.0</mongo.java.driver.version>
+    <mongo.spring.data.version>1.8.0.RELEASE</mongo.spring.data.version>
+    <xxl.job.version>1.9.0</xxl.job.version>
+    <!--设置默认的编译器信息-->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+
+  </properties>
+
+  <build>
+   <finalName>luxbid-parent</finalName>
+  </build>
+</project>

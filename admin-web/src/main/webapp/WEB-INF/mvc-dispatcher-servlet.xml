@@ -1,0 +1,100 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd ">
+
+    <!-- 国际化资源文件 -->
+    <bean id="messageSource" class="com.mine.common.plugin.i18n.MessageSource">
+        <!-- 表示多语言配置文件在根路径下，以language开头的文件-->
+        <property name="basenames" value="classpath:properties/language"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="600"/>
+    </bean>
+
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="zh_CN"/>
+    </bean>
+
+    <!-- controller scan -->
+    <context:component-scan base-package="com.shop.admin.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+    <context:annotation-config/>
+
+    <mvc:annotation-driven>
+
+        <!-- 处理responseBody 里面日期类型 -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+
+    </mvc:annotation-driven>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--保证拦截到controller-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
+    <mvc:interceptors>
+        <!--国际化拦截器-->
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+
+        <bean id="googleInterceptor" class="com.shop.admin.security.interceptor.GoogleInterceptor"/>
+
+
+    </mvc:interceptors>
+
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为10MB -->
+        <property name="maxUploadSize">
+            <value>10000000</value>
+        </property>
+    </bean>
+
+    <!-- 统一异常处理
+    <bean id="restExceptionResolver" class="com.platform.mobile.http.exception.handler.RestExceptionHandler">
+        <property name="order" value="100"/>
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonHttpMessageConverter"/>
+            </list>
+        </property>
+        <property name="errorResolver">
+            <bean class="com.platform.mobile.http.exception.handler.DefaultRestErrorResolver">
+                <property name="defaultMoreInfoUrl" value="tech@platform.com"/>
+                <property name="exceptionMappingDefinitions">
+                    <map>
+                        <entry key="Throwable" value="2"/>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    -->
+
+</beans>
+

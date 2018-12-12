@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:properties/dubbo.properties" ignore-unresolvable="true"/>
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="biz-Service-Provider"  />
+
+    <!-- 使用multicast广播注册中心暴露服务地址 <dubbo:registry address="multicast://224.5.6.7:1234"/> -->
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <!--<dubbo:registry address="zookeeper://172.17.139.199:2181"/>-->
+
+
+    <!-- <dubbo:registry address="multicast://224.5.6.7:1234" /> -->
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="${dubbo.port}" dispatcher="message" threads="500" threadpool="cached" />
+
+    <!-- 具体的实现bean -->
+    <bean id="bizService" class="com.mine.bizservice.provider.BizServiceImpl" />
+    <bean id="currencyService" class="com.mine.bizservice.provider.CurrencyServiceImpl"/>
+    <bean id="exchangeService" class="com.mine.bizservice.provider.ExchangeServiceImpl"/>
+    <bean id="withdrawService" class="com.mine.bizservice.provider.WithdrawServiceImpl"/>
+    <bean id="mobileSubAccountService" class="com.mine.bizservice.provider.MobileSubAccountServiceImpl" />
+    <bean id="rewardService" class="com.mine.bizservice.provider.RewardServiceImpl" />
+    <bean id="adminService" class="com.mine.bizservice.provider.AdminServiceImpl" />
+    <bean id="convertService" class="com.mine.bizservice.provider.ConvertServiceImpl" />
+    <bean id="robotConfigService" class="com.mine.bizservice.provider.RobotConfigServiceImpl" />
+    <bean id="appropriationService" class="com.mine.bizservice.provider.AppropriationServiceImpl" />
+    <bean id="awardConfigService" class="com.mine.bizservice.provider.AwardConfigServiceImpl" />
+    <bean id="awardService" class="com.mine.bizservice.provider.AwardServiceImpl" />
+    <bean id="adminExchangePartitionServiceImpl" class="com.mine.bizservice.provider.AdminExchangePartitionServiceImpl" />
+    <bean id="customerBankcardInfoService" class="com.mine.bizservice.provider.CustomerBankcardInfoServiceImpl" />
+    <bean id="c2cExchangeOrderService" class="com.mine.bizservice.provider.C2CExchangeOrderServiceImpl" />
+    <bean id="c2cExchangeOrderDetailService" class="com.mine.bizservice.provider.C2CExchangeOrderDetailServiceImpl" />
+    <bean id="c2cPriceService" class="com.mine.bizservice.provider.C2CPriceServiceImpl" />
+    <bean id="systemBankcardInfoService" class="com.mine.bizservice.provider.SystemBankcardInfoServiceImpl" />
+    <bean id="bankService" class="com.mine.bizservice.provider.BankServiceImpl" />
+    <bean id="activityService" class="com.mine.bizservice.provider.ActivityServiceImpl" />
+    <bean id="activityConfigService" class="com.mine.bizservice.provider.ActivityConfigServiceImpl" />
+    <bean id="luckyDrawRecordService" class="com.mine.bizservice.provider.LuckyDrawRecordServiceImpl" />
+    <bean id="messageService" class="com.mine.bizservice.provider.MessageServiceImpl" />
+    <bean id="c2cTradeLimitService" class="com.mine.bizservice.provider.C2CTradeLimitServiceImpl" />
+    <bean id="c2cCurrencyService" class="com.mine.bizservice.provider.C2CCurrencyServiceImpl" />
+    <bean id="customerBonusRecordService" class="com.mine.bizservice.provider.CustomerBonusRecordServiceImpl" />
+    <bean id="customerMiningRecordService" class="com.mine.bizservice.provider.CustomerMiningRecordServiceImpl" />
+    <bean id="feeReceiptService" class="com.mine.bizservice.provider.FeeReceiptServiceImpl" />
+    <bean id="feeSnapshotService" class="com.mine.bizservice.provider.FeeSnapshotServiceImpl" />
+    <bean id="bonusService" class="com.mine.bizservice.provider.BonusServiceImpl" />
+    <bean id="bonusSettingService" class="com.mine.bizservice.provider.BonusSettingServiceImpl" />
+    <bean id="hubiCirculationCountService" class="com.mine.bizservice.provider.HubiCirculationCountServiceImpl" />
+    <bean id="rechargeService" class="com.mine.bizservice.provider.RechargeServiceImpl" />
+    <bean id="loanCurrencyProductService" class="com.mine.bizservice.provider.LoanCurrencyProductServiceImpl" />
+    <bean id="loanAmountRateService" class="com.mine.bizservice.provider.LoanAmountRateServiceImpl" />
+    <!--抵押订单-->
+    <bean id="loanOrderService" class="com.mine.bizservice.provider.LoanOrderServiceImpl" />
+    <bean id="partnerOrderInfoService" class="com.mine.bizservice.provider.PartnerOrderInfoServiceImpl" />
+    <bean id="leverService" class="com.mine.bizservice.provider.LeverServiceImpl" />
+    <bean id="customerApiService" class="com.mine.bizservice.provider.CustomerApiServiceImpl" />
+
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.mine.bizservice.BizService" ref="bizService" />
+
+    <!--币种服务-->
+    <dubbo:service interface="com.mine.bizservice.CurrencyService" ref="currencyService"/>
+
+    <!--兑换服务-->
+    <dubbo:service interface="com.mine.bizservice.ConvertService" ref="convertService"/>
+
+    <!--机器人配置服务-->
+    <dubbo:service interface="com.mine.bizservice.RobotConfigService" ref="robotConfigService"/>
+
+    <!--奖励服务-->
+    <dubbo:service interface="com.mine.bizservice.AwardService" ref="awardService"/>
+
+    <!--拨付服务-->
+    <dubbo:service interface="com.mine.bizservice.AppropriationService" ref="appropriationService"/>
+
+    <!--交易对服务-->
+    <dubbo:service interface="com.mine.bizservice.ExchangeService" ref="exchangeService"/>
+
+    <!--提币服务-->
+    <dubbo:service interface="com.mine.bizservice.WithdrawService" ref="withdrawService"/>
+    <!-- app 获取用户的提币地址-->
+    <dubbo:service interface="com.mine.bizservice.MobileSubAccountService" ref="mobileSubAccountService" retries="0" timeout="30000" />
+    <!-- admin 订单查询 -->
+    <dubbo:service interface="com.mine.bizservice.AdminService" retries="0" timeout="30000" ref="adminService"  />
+
+    <!--奖励-->
+    <dubbo:service interface="com.mine.bizservice.RewardService" ref="rewardService" retries="0" timeout="30000" />
+
+    <!--活动奖励-->
+    <dubbo:service interface="com.mine.bizservice.AwardConfigService" ref="awardConfigService" retries="0" timeout="30000" />
+
+    <dubbo:service interface="com.mine.bizservice.AdminExchangePartitionService" ref="adminExchangePartitionServiceImpl" retries="0" timeout="30000" />
+
+    <!-- 法币交易银行账户 -->
+    <dubbo:service interface="com.mine.bizservice.CustomerBankcardInfoService" ref="customerBankcardInfoService" retries="0" timeout="30000" />
+    <!-- 法币交易订单 -->
+    <dubbo:service interface="com.mine.bizservice.C2CExchangeOrderService" ref="c2cExchangeOrderService" retries="0" timeout="30000" />
+    <!-- 法币交易订单详情 -->
+    <dubbo:service interface="com.mine.bizservice.C2CExchangeOrderDetailService" ref="c2cExchangeOrderDetailService" retries="0" timeout="30000" />
+    <!-- 单价设置 -->
+    <dubbo:service interface="com.mine.bizservice.C2CPriceService" ref="c2cPriceService" retries="0" timeout="30000" />
+    <!-- 法币交易系统银行账户 -->
+    <dubbo:service interface="com.mine.bizservice.SystemBankcardInfoService" ref="systemBankcardInfoService" retries="0" timeout="30000" />
+    <!-- 银行 -->
+    <dubbo:service interface="com.mine.bizservice.BankService" ref="bankService" retries="0" timeout="30000" />
+
+    <!--活动方案-->
+    <dubbo:service interface="com.mine.bizservice.ActivityService" ref="activityService"/>
+    <dubbo:service interface="com.mine.bizservice.ActivityConfigService" ref="activityConfigService"/>
+    <dubbo:service interface="com.mine.bizservice.LuckyDrawRecordService" ref="luckyDrawRecordService"/>
+
+    <!-- 站内信 -->
+    <dubbo:service interface="com.mine.bizservice.MessageService" ref="messageService"/>
+    <!-- 交易限额设置 -->
+    <dubbo:service interface="com.mine.bizservice.C2CTradeLimitService" ref="c2cTradeLimitService" retries="0" timeout="30000" />
+
+    <!--手续费统计-->
+    <dubbo:service interface="com.mine.bizservice.FeeReceiptService" ref="feeReceiptService" retries="0" timeout="30000" />
+    <dubbo:service interface="com.mine.bizservice.FeeSnapshotService" ref="feeSnapshotService" retries="0" timeout="30000" />
+    <!-- C2C币种设置 -->
+    <dubbo:service interface="com.mine.bizservice.C2CCurrencyService" ref="c2cCurrencyService" retries="0" timeout="30000" />
+    <!-- 分红和挖矿记录 -->
+    <dubbo:service interface="com.mine.bizservice.CustomerBonusRecordService" ref="customerBonusRecordService" retries="0" timeout="30000" />
+    <dubbo:service interface="com.mine.bizservice.CustomerMiningRecordService" ref="customerMiningRecordService" retries="0" timeout="30000" />
+
+    <dubbo:service interface="com.mine.bizservice.BonusService" ref="bonusService" retries="0" timeout="30000" />
+
+    <dubbo:service interface="com.mine.bizservice.BonusSettingService" ref="bonusSettingService" retries="0" timeout="30000" />
+    <dubbo:service interface="com.mine.bizservice.HubiCirculationCountService" ref="hubiCirculationCountService" retries="0" timeout="30000" />
+    <dubbo:service interface="com.mine.bizservice.RechargeService" ref="rechargeService" retries="0" timeout="30000" />
+
+    <dubbo:service interface="com.mine.bizservice.LoanCurrencyProductService" ref="loanCurrencyProductService" retries="0" timeout="30000" />
+
+    <dubbo:service interface="com.mine.bizservice.LoanAmountRateService" ref="loanAmountRateService" retries="0" timeout="30000" />
+    <!--借款订单-->
+    <dubbo:service interface="com.mine.bizservice.LoanOrderService" ref="loanOrderService" retries="0" timeout="30000" />
+
+    <dubbo:service interface="com.mine.bizservice.PartnerOrderInfoService" ref="partnerOrderInfoService" retries="0" timeout="30000" />
+
+
+    <!-- 配资 -->
+    <dubbo:service interface="com.mine.bizservice.LeverService" ref="leverService" retries="0" timeout="30000" />
+
+
+    <!--用户API-->
+    <dubbo:service interface="com.mine.bizservice.CustomerApiService" ref="customerApiService" retries="0" timeout="30000" />
+
+    <!--匹配服务-->
+    <dubbo:reference id="matcherService" interface="com.mine.ex.matcher.MatcherService" retries="0" check="false"/>
+
+    <!--备用地址服务-->
+    <dubbo:reference id="spareAddressService" interface="com.mine.wallet.service.SpareAddressService" retries="0" check="false"/>
+
+    <!--钱包提币服务-->
+    <dubbo:reference id="walletWithdraw" interface="com.mine.wallet.service.WithdrawService" retries="0" check="false"/>
+
+    <!--钱包服务-->
+    <dubbo:reference interface="com.mine.wallet.service.WalletService" id="walletService" check="false" retries="0" timeout="30000" />
+
+    <dubbo:reference interface="com.mine.userservice.UserService" id="userService" retries="0" check="false" />
+
+    <dubbo:reference interface="com.mine.userservice.PartnerLevelService" id="partnerLevelService" retries="0" check="false" />
+
+    <dubbo:reference interface="com.mine.userservice.CommunityService" id="communityService" retries="0" check="false" />
+
+    <!-- 邀请记录 -->
+    <dubbo:reference interface="com.mine.userservice.InviteRecordService" id="inviteRecordService" retries="0" check="false" timeout="30000" />
+
+
+
+
+</beans>
